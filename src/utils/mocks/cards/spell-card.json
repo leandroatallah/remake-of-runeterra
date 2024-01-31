@@ -1,0 +1,18 @@
+{
+  "id": "01PZ008",
+  "title": "Spell",
+  "regions": [
+    {
+      "name": "Piltover & Zaun",
+      "color": "#f0f",
+      "iconAbsolutePath": "/assets/regions/pnz.png"
+    }
+  ],
+  "type": "spell",
+  "levelUpDescription": "I have 5+ Power.",
+  "mechanics": [],
+  "keywords": [],
+  "cost": 2,
+  "spellSpeed": "fast",
+  "spellSpeedRef": "Fast"
+}

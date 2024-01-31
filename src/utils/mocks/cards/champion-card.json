@@ -1,0 +1,19 @@
+{
+  "id": "01PZ008",
+  "title": "Champion",
+  "attack": 1,
+  "health": 3,
+  "cost": 2,
+  "regions": [
+    {
+      "name": "Piltover & Zaun",
+      "color": "#f0f",
+      "iconAbsolutePath": "/assets/regions/pnz.png"
+    }
+  ],
+  "type": "champion",
+  "levelUpDescription": "I have 5+ Power.",
+  "mechanics": [],
+  "keywords": [],
+  "associatedCards": []
+}
