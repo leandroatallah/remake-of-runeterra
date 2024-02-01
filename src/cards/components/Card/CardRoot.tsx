@@ -4,16 +4,22 @@ import { CardContextProvider } from "./CardContext";
 interface CardRootProps {
   card: CardItem;
   children: React.ReactNode;
+  isTurned?: boolean;
 }
 
-export const CardRoot = ({ card, children, ...rest }: CardRootProps) => {
+export const CardRoot = ({
+  card,
+  children,
+  isTurned,
+  ...rest
+}: CardRootProps) => {
   return (
     <CardContextProvider value={card}>
       <div
         className="w-[200px] aspect-[3/4] rounded-md p-2 border-2 border-gray-100 select-none"
         {...rest}
       >
-        {children}
+        {isTurned ? <div /> : children}
       </div>
     </CardContextProvider>
   );

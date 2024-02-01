@@ -7,9 +7,10 @@ interface CardProps {
   data: CardItem;
   index: number;
   disabled?: boolean;
+  isTurned?: boolean;
 }
 
-export const Card = ({ data, index, disabled }: CardProps) => {
+export const Card = ({ data, index, disabled, isTurned }: CardProps) => {
   return (
     <Draggable draggableId={data.id} index={index} isDragDisabled={disabled}>
       {(provided) => (
@@ -18,7 +19,7 @@ export const Card = ({ data, index, disabled }: CardProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Composition.Root card={data}>
+          <Composition.Root card={data} isTurned={isTurned}>
             <Composition.Header />
             <Composition.Title />
             {data.isChampion && <Composition.FooterChampion />}
