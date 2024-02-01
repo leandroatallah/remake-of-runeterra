@@ -1,7 +1,7 @@
-import { ChampionCard, SpellCard } from "@/cards/models";
+import { CardItem } from "@/cards/models";
 import { createContext, useContext } from "react";
 
-type CardContextProps = ChampionCard | SpellCard | null;
+type CardContextProps = CardItem | null;
 
 const CardContext = createContext<CardContextProps>(null);
 

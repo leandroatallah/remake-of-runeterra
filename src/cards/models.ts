@@ -27,6 +27,8 @@ export interface SpellCard extends CardBase {
   artistName?: string;
 }
 
+export type CardItem = ChampionCard | SpellCard;
+
 export interface Keyword {
   name: string;
   description: string;
