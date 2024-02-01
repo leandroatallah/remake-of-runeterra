@@ -6,11 +6,12 @@ import * as Composition from "./CardComposition";
 interface CardProps {
   data: CardItem;
   index: number;
+  disabled?: boolean;
 }
 
-export const Card = ({ data, index }: CardProps) => {
+export const Card = ({ data, index, disabled }: CardProps) => {
   return (
-    <Draggable draggableId={data.id} index={index}>
+    <Draggable draggableId={data.id} index={index} isDragDisabled={disabled}>
       {(provided) => (
         <div
           ref={provided.innerRef}
