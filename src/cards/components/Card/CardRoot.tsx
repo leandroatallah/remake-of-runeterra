@@ -1,5 +1,6 @@
 import { CardItem } from "@/cards/models";
 import { CardContextProvider } from "./CardContext";
+import { CARD_SHAPE_STYLE } from "@/utils/styles/card";
 
 interface CardRootProps {
   children?: React.ReactNode;
@@ -16,12 +17,7 @@ export const CardRoot = ({
 }: CardRootProps) => {
   return (
     <CardContextProvider value={card}>
-      <div
-        className={[
-          "w-[200px] aspect-[3/4] rounded-md p-2 border-2 border-gray-100 bg-zinc-800 select-none",
-          className,
-        ].join(" ")}
-      >
+      <div className={[CARD_SHAPE_STYLE, className].join(" ")}>
         {card && !isTurned ? children : <div />}
       </div>
     </CardContextProvider>
