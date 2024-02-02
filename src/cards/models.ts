@@ -7,6 +7,7 @@ export interface CardBase {
   keywords: Keyword[];
   levelUpDescription: string;
   mechanics: Mechanic[];
+  deckId?: string;
   isChampion?: boolean;
   isSpell?: boolean;
 }

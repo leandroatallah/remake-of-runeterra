@@ -12,7 +12,7 @@ export const Hand = ({ cards, disabled, isTurned }: HandProps) => {
     <div className="flex gap-1 justify-center items-baseline">
       {cards.map((card, index) => (
         <Card
-          key={card.id}
+          key={card.deckId}
           index={index}
           data={card}
           disabled={disabled}

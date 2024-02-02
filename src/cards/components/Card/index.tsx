@@ -18,12 +18,16 @@ export const Card = ({
   isTurned,
   className = "",
 }: CardProps) => {
-  if (!data) {
+  if (!data || !data.deckId) {
     return <Composition.Root card={null} isTurned className={className} />;
   }
 
   return (
-    <Draggable draggableId={data.id} index={index} isDragDisabled={disabled}>
+    <Draggable
+      draggableId={data.deckId}
+      index={index}
+      isDragDisabled={disabled}
+    >
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -35,6 +39,7 @@ export const Card = ({
             isTurned={isTurned}
             className={className}
           >
+            {disabled && "disabled"}
             <Composition.Header />
             <Composition.Title />
             {data.isChampion && <Composition.FooterChampion />}

@@ -9,13 +9,20 @@ import mockSpellCard from "@/utils/mocks/cards/spell-card.json";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { setPlayerDeck } = useBoardContext();
+  const { buildDeckCards } = useBoardContext();
 
   useEffect(() => {
     const sampleChampion = cardDataMapper(mockChampionCard);
     const sampleSpell = cardDataMapper(mockSpellCard);
 
-    setPlayerDeck([sampleChampion, sampleSpell]);
+    buildDeckCards([
+      sampleChampion,
+      sampleSpell,
+      sampleChampion,
+      sampleSpell,
+      sampleChampion,
+      sampleSpell,
+    ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
