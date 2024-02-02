@@ -1,0 +1,3 @@
+- To AI plays
+  - [https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-controls](https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-controls)
+  - [https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-runsheet](https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-runsheet)
