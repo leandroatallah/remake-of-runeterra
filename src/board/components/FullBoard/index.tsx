@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
 import {
   DragDropContext,
   DropResult,
   ResponderProvided,
 } from "@hello-pangea/dnd";
 
-import { cardDataMapper } from "@/cards/utils/cardDataMapper";
-import { CardItem } from "@/cards/models";
-import mockChampionCard from "@/utils/mocks/cards/champion-card.json";
-import mockSpellCard from "@/utils/mocks/cards/spell-card.json";
 import { BoardSide } from "@/board/components/BoardSide";
 import { PlayerArea } from "@/board/components/PlayerArea";
 import {
@@ -16,10 +11,11 @@ import {
   DROPPABLE_HAND_ID,
 } from "@/utils/constants/drag-and-drop";
 import { playDraggableItem, reorderDraggableList } from "@/board/functions";
+import { useBoardContext } from "../BoardContext";
 
 export const FullBoard = () => {
-  const [playerHand, setPlayerHand] = useState<CardItem[]>([]);
-  const [playerBoard, setPlayerBoard] = useState<CardItem[]>([]);
+  const { playerHand, setPlayerHand, playerBoard, setPlayerBoard } =
+    useBoardContext();
 
   function onDragEnd(result: DropResult, provided: ResponderProvided) {
     const { source, destination } = result;
@@ -45,14 +41,6 @@ export const FullBoard = () => {
       return;
     }
   }
-
-  useEffect(() => {
-    // Mounting the player hand with some sample cards
-    const sampleChampion = cardDataMapper(mockChampionCard);
-    const sampleSpell = cardDataMapper(mockSpellCard);
-
-    setPlayerHand([sampleChampion, sampleSpell]);
-  }, []);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
