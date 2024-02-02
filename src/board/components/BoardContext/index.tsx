@@ -14,6 +14,8 @@ type BoardContextProps = {
   setPlayerBoard: Dispatch<SetStateAction<CardItem[]>>;
   playerDeck: CardItem[];
   setPlayerDeck: Dispatch<SetStateAction<CardItem[]>>;
+
+  playerDrawCardFromDeck: () => void;
 };
 
 const BoardContext = createContext<BoardContextProps | null>(null);
@@ -43,6 +45,15 @@ export const BoardContextProvider = ({
   const [playerBoard, setPlayerBoard] = useState<CardItem[]>([]);
   const [playerDeck, setPlayerDeck] = useState<CardItem[]>([]);
 
+  const playerDrawCardFromDeck = () => {
+    // TODO: Handle empty deck
+    if (playerDeck.length) {
+      const [drawnCard, ...restDeck] = playerDeck;
+      setPlayerHand((prev) => [...prev, drawnCard]);
+      setPlayerDeck(restDeck);
+    }
+  };
+
   return (
     <BoardContext.Provider
       value={{
@@ -52,6 +63,8 @@ export const BoardContextProvider = ({
         setPlayerBoard,
         playerDeck,
         setPlayerDeck,
+
+        playerDrawCardFromDeck,
       }}
     >
       {children}

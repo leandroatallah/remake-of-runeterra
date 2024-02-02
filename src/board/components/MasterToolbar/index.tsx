@@ -1,20 +1,31 @@
 import { useBoardContext } from "../BoardContext";
+import { CardItem } from "@/cards/models";
+
+function logger(label: string, items: CardItem[]) {
+  console.log(label, {
+    count: items.length,
+    items,
+  });
+}
 
 export const MasterToolbar = () => {
-  const { playerHand, playerDeck, playerBoard } = useBoardContext();
+  const { playerHand, playerDeck, playerBoard, playerDrawCardFromDeck } =
+    useBoardContext();
 
-  const handlePlayerOneDraw = () => {};
+  const handlePlayerOneDraw = () => {
+    playerDrawCardFromDeck();
+  };
 
   const handleLogPlayerOneHand = () => {
-    console.log("Player 1 hand", playerHand);
+    logger("P1 hand", playerHand);
   };
 
   const handleLogPlayerOneDeck = () => {
-    console.log("Player 1 deck", playerDeck);
+    logger("P1 deck", playerDeck);
   };
 
   const handleLogPlayerOneBoard = () => {
-    console.log("Player 1 board", playerBoard);
+    logger("P1 board", playerBoard);
   };
 
   const actions = [
