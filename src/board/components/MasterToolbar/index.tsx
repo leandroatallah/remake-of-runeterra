@@ -72,6 +72,17 @@ export const MasterToolbar = () => {
     });
   };
 
+  const handleDeleteFirstBoardCard = () => {
+    const [firstCard] = playerBoard || [];
+
+    if (!firstCard) {
+      console.error("Error deleting card");
+      return;
+    }
+
+    deleteBoardCard(firstCard);
+  };
+
   const resetInputModal = () => setInputModal(initialInputModal);
 
   const actions = [
@@ -104,8 +115,12 @@ export const MasterToolbar = () => {
       },
     },
     {
-      label: "P1 destroy card",
-      handler: () => handleDeleteBoardCard(),
+      label: "P1 destroy a card",
+      handler: handleDeleteBoardCard,
+    },
+    {
+      label: "P1 destroy first card",
+      handler: handleDeleteFirstBoardCard,
     },
   ];
 

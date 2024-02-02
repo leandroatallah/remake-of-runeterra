@@ -1,8 +1,8 @@
 import { Droppable } from "@hello-pangea/dnd";
 
-import { Hand } from "@/cards/components/Hand";
 import { DROPPABLE_BOARD_ID } from "@/utils/constants/drag-and-drop";
 import { CardItem } from "@/cards/models";
+import { BoardTrack } from "../BoardTrack";
 
 interface BoardProps {
   cards: CardItem[];
@@ -21,11 +21,9 @@ export const BoardSide = ({ cards }: BoardProps) => {
           className="h-[480px] bg-zinc-400 w-full flex justify-center items-center"
           {...provided.droppableProps}
         >
-          <div className="flex">
-            {/* TODO: Change to board track */}
-            <Hand disabled cards={cards} />
-          </div>
-          {provided.placeholder}
+          <BoardTrack disabled cards={cards}>
+            {provided.placeholder}
+          </BoardTrack>
         </div>
       )}
     </Droppable>
