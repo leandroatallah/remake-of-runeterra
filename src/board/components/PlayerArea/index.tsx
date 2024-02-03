@@ -2,14 +2,12 @@ import { Droppable } from "@hello-pangea/dnd";
 
 import { Hand } from "@/cards/components/Hand";
 import { DROPPABLE_HAND_ID } from "@/utils/constants/drag-and-drop";
-import { CardItem } from "@/cards/models";
 import { DeckPile } from "../DeckPile";
+import { useBoardContext } from "../BoardContext";
 
-interface PlayerAreaProps {
-  cards: CardItem[];
-}
+export const PlayerArea = () => {
+  const { playerHand } = useBoardContext();
 
-export const PlayerArea = ({ cards }: PlayerAreaProps) => {
   return (
     <div className="flex justify-between">
       <DeckPile />
@@ -26,7 +24,7 @@ export const PlayerArea = ({ cards }: PlayerAreaProps) => {
               {...provided.droppableProps}
             >
               <div className="flex">
-                <Hand cards={cards} />
+                <Hand cards={playerHand} />
               </div>
               {provided.placeholder}
             </div>

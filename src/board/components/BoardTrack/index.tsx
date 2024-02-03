@@ -42,14 +42,14 @@ export const BoardTrack = ({ disabled }: BoardTrackProps) => {
                     <div
                       className={[
                         CARD_SHAPE_STYLE,
-                        "relative bg-transparent border-0",
+                        "relative !bg-transparent !border-0",
                       ].join(" ")}
                     >
                       <div
                         className={[
                           CARD_SHAPE_STYLE,
                           BORDER_DASHED_STYLE,
-                          "absolute inset-0 flex justify-center items-center  bg-opacity-20",
+                          "absolute inset-0 flex justify-center items-center !bg-transparent !border-zinc-300",
                         ].join(" ")}
                       />
                     </div>
