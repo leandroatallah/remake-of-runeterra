@@ -6,11 +6,7 @@ import { BORDER_DASHED_STYLE, CARD_SHAPE_STYLE } from "@/styles/card";
 import { useBoardContext } from "../BoardContext";
 import { Card } from "@/modules/cards/components/Card";
 
-interface BoardTrackProps {
-  disabled?: boolean;
-}
-
-export const BoardTrack = ({ disabled }: BoardTrackProps) => {
+export const BoardTrack = () => {
   const { playerBoard } = useBoardContext();
   return (
     <div
@@ -20,7 +16,7 @@ export const BoardTrack = ({ disabled }: BoardTrackProps) => {
       ].join(" ")}
     >
       {Array.from({ length: BOARD_TRACK_SPACES }).map((_, index) => {
-        const droppableId = `${DROPPABLE_BOARD_ID}-${index + 1}`;
+        const droppableId = `${DROPPABLE_BOARD_ID}-${index}`;
         const card = playerBoard.find(
           (card) => card.boardTrack === droppableId
         );
@@ -55,7 +51,7 @@ export const BoardTrack = ({ disabled }: BoardTrackProps) => {
                     </div>
                   </div>
                 )}
-                {/* {provided.placeholder} */}
+                <div className="hidden">{provided.placeholder}</div>
               </div>
             )}
           </Droppable>

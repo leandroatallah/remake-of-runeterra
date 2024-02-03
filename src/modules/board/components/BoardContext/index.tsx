@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { delay } from "@/utils/delay";
 
 type SetCardItemState = Dispatch<SetStateAction<CardItem[]>>;
 
@@ -61,7 +62,7 @@ export const BoardContextProvider = ({
     setPlayerDeck(cards.map(parseCardToDeck));
   };
 
-  const drawCardFromDeckToHand = (count: number = 1) => {
+  const drawCardFromDeckToHand = async (count: number = 1) => {
     // TODO: Handle empty deck
     const handSpace = MAX_HAND_SIZE - playerHand.length;
     const drawCount = Math.min(count, playerDeck.length, handSpace);
@@ -70,11 +71,17 @@ export const BoardContextProvider = ({
       return;
     }
 
-    // splice
     const deck = [...playerDeck];
-    const drawnCards = deck.splice(0, drawCount);
-    setPlayerHand((prev) => [...prev, ...drawnCards]);
-    setPlayerDeck(deck);
+
+    for (let i = 0; i < drawCount; i++) {
+      if (i > 0) {
+        await delay(250);
+      }
+      const drawnCard = deck.shift();
+      console.log("drawnCard", drawnCard);
+      setPlayerHand((prev) => [...prev, drawnCard!]);
+      setPlayerDeck(deck);
+    }
   };
 
   const drawInitialHand = () => {
