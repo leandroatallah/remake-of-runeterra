@@ -87,47 +87,54 @@ export const MasterToolbar = () => {
 
   const actions = [
     {
-      label: "P1 draw a card",
-      handler: drawCardFromDeckToHand,
-    },
-    {
-      label: "P1 draw hand",
-      handler: drawInitialHand,
-    },
-    {
-      label: "P1 Log deck",
-      handler: handleLogPlayerOneDeck,
-    },
-    {
-      label: "P1 Log hand",
-      handler: handleLogPlayerOneHand,
-    },
-    {
-      label: "P1 Log board",
-      handler: handleLogPlayerOneBoard,
-    },
-    {
-      label: "P1 Log all",
-      handler: () => {
-        handleLogPlayerOneDeck();
-        handleLogPlayerOneHand();
-        handleLogPlayerOneBoard();
+      group: {
+        label: "Player 1",
+        actions: [
+          {
+            label: "draw a card",
+            handler: drawCardFromDeckToHand,
+          },
+          {
+            label: "draw hand",
+            handler: drawInitialHand,
+          },
+          {
+            label: "Log deck",
+            handler: handleLogPlayerOneDeck,
+          },
+          {
+            label: "Log hand",
+            handler: handleLogPlayerOneHand,
+          },
+          {
+            label: "Log board",
+            handler: handleLogPlayerOneBoard,
+          },
+          {
+            label: "Log all",
+            handler: () => {
+              handleLogPlayerOneDeck();
+              handleLogPlayerOneHand();
+              handleLogPlayerOneBoard();
+            },
+          },
+          {
+            label: "destroy a card",
+            handler: handleDeleteBoardCard,
+          },
+          {
+            label: "destroy first card",
+            handler: handleDeleteFirstBoardCard,
+          },
+        ],
       },
-    },
-    {
-      label: "P1 destroy a card",
-      handler: handleDeleteBoardCard,
-    },
-    {
-      label: "P1 destroy first card",
-      handler: handleDeleteFirstBoardCard,
     },
   ];
 
   return (
     <>
       {inputModal?.visible && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 z-10 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
           <div className="bg-zinc-300 p-6 pt-4 rounded-md text-zinc-900">
             <h2 className="text-[18px] mb-1 leading-none">
               {inputModal?.modalTitle || "Input"}
@@ -164,20 +171,29 @@ export const MasterToolbar = () => {
           </div>
         </div>
       )}
-      <div className="w-full fixed top-0 text-zinc-950">
-        <div className="p-4 border-2 border-t-0 border-zinc-700 bg-zinc-300 max-w-[480px] m-auto rounded-b-md">
-          <h1 className="text-[14px] uppercase text-center font-bold mb-4">
+      <div className="w-full fixed top-0 text-zinc-950 z-20">
+        <div className="p-2 border-2 border-t-0 border-zinc-500 bg-zinc-300 max-w-[1024px] m-auto rounded-b-md">
+          <h1 className="text-[12px] tracking-widest uppercase text-center font-bold mb-2">
             Master Toolbar
           </h1>
-          <div className="flex gap-1">
-            {actions.map(({ label, handler }) => (
-              <button
-                key={label}
-                className="w-full flex justify-center items-center border-2 border-zinc-50 bg-zinc-50 px-2 rounded-md"
-                onClick={() => handler()}
-              >
-                <span className="text-zinc-900 text-[12px]">{label}</span>
-              </button>
+          <div className="">
+            {actions.map(({ group }) => (
+              <div className="bg-zinc-200 text-center p-2" key={group.label}>
+                <div className="text-[12px] uppercase pb-1 mb-2 border-b border-zinc-300">
+                  {group.label}
+                </div>
+                <div className="flex gap-2">
+                  {group.actions.map(({ label, handler }) => (
+                    <button
+                      key={label}
+                      className="w-full flex justify-center items-center border-2 border-zinc-50 bg-zinc-50 rounded-md"
+                      onClick={() => handler()}
+                    >
+                      <span className="text-zinc-900 text-[10px]">{label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
