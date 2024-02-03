@@ -1,4 +1,4 @@
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 import { createContext, useContext } from "react";
 
 type CardContextProps = CardItem | null;

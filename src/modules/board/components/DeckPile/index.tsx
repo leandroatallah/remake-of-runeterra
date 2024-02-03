@@ -1,4 +1,4 @@
-import { Card } from "@/cards/components/Card";
+import { Card } from "@/modules/cards/components/Card";
 import { useBoardContext } from "../BoardContext";
 
 export const DeckPile = () => {

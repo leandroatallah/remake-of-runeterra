@@ -1,6 +1,6 @@
 import { Draggable } from "@hello-pangea/dnd";
 
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 import * as Composition from "./CardComposition";
 
 interface CardProps {

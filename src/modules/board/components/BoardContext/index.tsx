@@ -1,5 +1,5 @@
-import { CardItem } from "@/cards/models";
-import { INITIAL_HAND_SIZE, MAX_HAND_SIZE } from "@/utils/constants/rules";
+import { CardItem } from "@/modules/cards/models";
+import { INITIAL_HAND_SIZE, MAX_HAND_SIZE } from "@/constants/rules";
 import {
   Dispatch,
   SetStateAction,

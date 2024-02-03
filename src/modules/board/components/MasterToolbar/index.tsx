@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useBoardContext } from "../BoardContext";
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 
 function logger(label: string, items: CardItem[]) {
   console.log(label, {

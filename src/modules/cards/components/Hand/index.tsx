@@ -1,4 +1,4 @@
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 import { Card } from "../Card";
 
 interface HandProps {

@@ -1,10 +1,10 @@
 import { Droppable } from "@hello-pangea/dnd";
 
-import { DROPPABLE_BOARD_ID } from "@/utils/constants/drag-and-drop";
-import { BOARD_TRACK_SPACES } from "@/utils/constants/board";
-import { BORDER_DASHED_STYLE, CARD_SHAPE_STYLE } from "@/utils/styles/card";
+import { DROPPABLE_BOARD_ID } from "@/constants/drag-and-drop";
+import { BOARD_TRACK_SPACES } from "@/constants/board";
+import { BORDER_DASHED_STYLE, CARD_SHAPE_STYLE } from "@/styles/card";
 import { useBoardContext } from "../BoardContext";
-import { Card } from "@/cards/components/Card";
+import { Card } from "@/modules/cards/components/Card";
 
 interface BoardTrackProps {
   disabled?: boolean;

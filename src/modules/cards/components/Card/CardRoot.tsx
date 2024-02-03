@@ -1,6 +1,6 @@
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 import { CardContextProvider } from "./CardContext";
-import { CARD_SHAPE_STYLE } from "@/utils/styles/card";
+import { CARD_SHAPE_STYLE } from "@/styles/card";
 
 interface CardRootProps {
   children?: React.ReactNode;

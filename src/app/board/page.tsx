@@ -1,12 +1,13 @@
 "use client";
 
-import { useBoardContext } from "@/board/components/BoardContext";
-import { FullBoard } from "@/board/components/FullBoard";
-import { MasterToolbar } from "@/board/components/MasterToolbar";
-import { cardDataMapper } from "@/cards/utils/cardDataMapper";
-import mockChampionCard from "@/utils/mocks/cards/champion-card.json";
-import mockSpellCard from "@/utils/mocks/cards/spell-card.json";
 import { useEffect } from "react";
+
+import { useBoardContext } from "@/modules/board/components/BoardContext";
+import { FullBoard } from "@/modules/board/components/FullBoard";
+import { MasterToolbar } from "@/modules/board/components/MasterToolbar";
+import { cardDataMapper } from "@/modules/cards/utils/cardDataMapper";
+import mockChampionCard from "@/data/mocks/cards/champion-card.json";
+import mockSpellCard from "@/data/mocks/cards/spell-card.json";
 
 export default function Home() {
   const { buildDeckCards } = useBoardContext();

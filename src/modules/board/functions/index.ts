@@ -1,4 +1,4 @@
-import { CardItem } from "@/cards/models";
+import { CardItem } from "@/modules/cards/models";
 
 export function playDraggableItem(list: CardItem[], index: number) {
   const result = Array.from(list);

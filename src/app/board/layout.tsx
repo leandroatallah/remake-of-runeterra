@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardContextProvider } from "@/board/components/BoardContext";
+import { BoardContextProvider } from "@/modules/board/components/BoardContext";
 
 export default function BoardLayout({
   children,

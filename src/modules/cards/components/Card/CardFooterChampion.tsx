@@ -1,4 +1,4 @@
-import { ChampionCard } from "@/cards/models";
+import { ChampionCard } from "@/modules/cards/models";
 import { useCardContext } from "./CardContext";
 
 export const CardFooterChampion = () => {

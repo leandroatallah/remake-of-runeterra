@@ -4,13 +4,16 @@ import {
   ResponderProvided,
 } from "@hello-pangea/dnd";
 
-import { BoardSide } from "@/board/components/BoardSide";
-import { PlayerArea } from "@/board/components/PlayerArea";
+import { BoardSide } from "@/modules/board/components/BoardSide";
+import { PlayerArea } from "@/modules/board/components/PlayerArea";
 import {
   DROPPABLE_BOARD_ID,
   DROPPABLE_HAND_ID,
-} from "@/utils/constants/drag-and-drop";
-import { playDraggableItem, reorderDraggableList } from "@/board/functions";
+} from "@/constants/drag-and-drop";
+import {
+  playDraggableItem,
+  reorderDraggableList,
+} from "@/modules/board/functions";
 import { useBoardContext } from "../BoardContext";
 
 export const FullBoard = () => {
