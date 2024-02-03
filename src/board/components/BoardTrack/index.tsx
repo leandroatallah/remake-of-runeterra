@@ -20,11 +20,10 @@ export const BoardTrack = ({ disabled }: BoardTrackProps) => {
       ].join(" ")}
     >
       {Array.from({ length: BOARD_TRACK_SPACES }).map((_, index) => {
-        const droppableId = `${DROPPABLE_BOARD_ID}-${index}`;
+        const droppableId = `${DROPPABLE_BOARD_ID}-${index + 1}`;
         const card = playerBoard.find(
           (card) => card.boardTrack === droppableId
         );
-        console.log("card", card);
 
         return (
           <Droppable
@@ -32,6 +31,7 @@ export const BoardTrack = ({ disabled }: BoardTrackProps) => {
             droppableId={droppableId}
             type="list"
             direction="horizontal"
+            isDropDisabled={!!card}
           >
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>

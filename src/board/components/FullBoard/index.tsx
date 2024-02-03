@@ -52,6 +52,7 @@ export const FullBoard = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="flex flex-col justify-between h-svh">
+        <div className="h-20" />
         <BoardSide />
         <PlayerArea cards={playerHand} />
       </div>
