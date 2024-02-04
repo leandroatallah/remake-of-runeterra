@@ -1,5 +1,5 @@
 import { Card } from "@/modules/cards/components/Card";
-import { useBoardContext } from "../BoardContext";
+import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const DeckPile = () => {
   const { playerDeck } = useBoardContext();

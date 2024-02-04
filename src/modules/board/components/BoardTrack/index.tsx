@@ -2,8 +2,8 @@ import { Droppable } from "@hello-pangea/dnd";
 
 import { DROPPABLE_BOARD_ID } from "@/constants/drag-and-drop";
 import { BORDER_DASHED_STYLE } from "@/styles/card";
-import { useBoardContext } from "../BoardContext";
 import { Card } from "@/modules/cards/components/Card";
+import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const BoardTrack = () => {
   const { playerBoard } = useBoardContext();

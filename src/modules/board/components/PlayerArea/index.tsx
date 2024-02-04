@@ -3,7 +3,7 @@ import { Droppable } from "@hello-pangea/dnd";
 import { Hand } from "@/modules/cards/components/Hand";
 import { DROPPABLE_HAND_ID } from "@/constants/drag-and-drop";
 import { DeckPile } from "../DeckPile";
-import { useBoardContext } from "../BoardContext";
+import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const PlayerArea = () => {
   const { playerHand } = useBoardContext();

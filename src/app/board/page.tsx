@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { useBoardContext } from "@/modules/board/components/BoardContext";
+import { useBoardContext } from "@/contexts/board/useBoardContext";
 import { FullBoard } from "@/modules/board/components/FullBoard";
 import { MasterToolbar } from "@/modules/board/components/MasterToolbar";
 import { cardDataMapper } from "@/modules/cards/utils/cardDataMapper";

@@ -1,11 +1,11 @@
 "use client";
 
-import { BoardContextProvider } from "@/modules/board/components/BoardContext";
+import { BoardContextProvider } from "@/contexts/board/BoardContextProvider";
 
-export default function BoardLayout({
-  children,
-}: {
+interface BoardLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function BoardLayout({ children }: BoardLayoutProps) {
   return <BoardContextProvider>{children}</BoardContextProvider>;
 }

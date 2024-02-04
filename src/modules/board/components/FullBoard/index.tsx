@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from "react";
 import {
   DragDropContext,
   DropResult,
@@ -17,8 +18,7 @@ import {
   playDraggableItem,
   reorderDraggableList,
 } from "@/modules/board/functions";
-import { useBoardContext } from "../BoardContext";
-import { useCallback, useRef, useState } from "react";
+import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const FullBoard = () => {
   const { playerHand, setPlayerHand, playerBoard, setPlayerBoard } =
