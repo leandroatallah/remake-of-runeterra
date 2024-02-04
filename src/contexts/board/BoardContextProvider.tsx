@@ -1,72 +1,70 @@
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import { CardItem } from "@/modules/cards/models";
-import { INITIAL_HAND_SIZE, MAX_HAND_SIZE } from "@/constants/rules";
-import { delay } from "@/utils/delay";
-import { BoardContext } from "./BoardContext";
+import { BoardContext, PlayerState } from "./BoardContext";
+import {
+  handleBuildDeckCards,
+  handleDeleteBoardCard,
+  handleDrawCardFromDeckToHand,
+  handleDrawInitialHand,
+} from "./functions";
 
 interface BoardContextProvider {
   children: React.ReactNode;
 }
 
 export const BoardContextProvider = ({ children }: BoardContextProvider) => {
+  // TODO: Update to use reducer
   const [playerHand, setPlayerHand] = useState<CardItem[]>([]);
   const [playerBoard, setPlayerBoard] = useState<CardItem[]>([]);
   const [playerDeck, setPlayerDeck] = useState<CardItem[]>([]);
 
-  const parseCardToDeck = (card: CardItem) => ({
-    ...card,
-    deckId: uuidv4(),
-  });
+  const [enemyHand, setEnemyHand] = useState<CardItem[]>([]);
+  const [enemyBoard, setEnemyBoard] = useState<CardItem[]>([]);
+  const [enemyDeck, setEnemyDeck] = useState<CardItem[]>([]);
 
-  const buildDeckCards = (cards: CardItem[]) => {
-    setPlayerDeck(cards.map(parseCardToDeck));
+  const playerBySide: Record<"player" | "enemy", PlayerState> = {
+    player: {
+      hand: playerHand,
+      board: playerBoard,
+      deck: playerDeck,
+      setHand: setPlayerHand,
+      setBoard: setPlayerBoard,
+      setDeck: setPlayerDeck,
+    },
+    enemy: {
+      hand: enemyHand,
+      board: enemyBoard,
+      deck: enemyDeck,
+      setHand: setEnemyHand,
+      setBoard: setEnemyBoard,
+      setDeck: setEnemyDeck,
+    },
   };
 
-  const drawCardFromDeckToHand = async (count: number = 1) => {
-    // TODO: Handle empty deck
-    const handSpace = MAX_HAND_SIZE - playerHand.length;
-    const drawCount = Math.min(count, playerDeck.length, handSpace);
+  const getPlayerBySide = (isEnemy?: boolean): PlayerState =>
+    playerBySide[isEnemy ? "enemy" : "player"];
 
-    if (drawCount <= 0) {
-      return;
-    }
-
-    const deck = [...playerDeck];
-
-    for (let i = 0; i < drawCount; i++) {
-      if (i > 0) {
-        await delay(100);
-      }
-      const drawnCard = deck.shift();
-      setPlayerHand((prev) => [...prev, drawnCard!]);
-      setPlayerDeck(deck);
-    }
+  const buildDeckCards = (cards: CardItem[], isEnemy?: boolean) => {
+    getPlayerBySide(isEnemy).setDeck(handleBuildDeckCards(cards));
+  };
+  const drawCardFromDeckToHand = async (count?: number, isEnemy?: boolean) => {
+    await handleDrawCardFromDeckToHand(getPlayerBySide(isEnemy), count);
   };
 
-  const drawInitialHand = () => {
-    drawCardFromDeckToHand(INITIAL_HAND_SIZE);
+  const drawInitialHand = (isEnemy?: boolean) => {
+    handleDrawInitialHand(getPlayerBySide(isEnemy));
   };
 
-  const deleteBoardCard = (card: CardItem) => {
-    // TODO: Use position index instead of id
-    if (!card?.id) {
-      console.error("Error deleting card");
-      return;
-    }
-    setPlayerBoard((prev) => prev.filter((c) => c.id !== card.id));
+  const deleteBoardCard = (card: CardItem, isEnemy?: boolean) => {
+    handleDeleteBoardCard(getPlayerBySide(isEnemy), card);
   };
 
   return (
     <BoardContext.Provider
       value={{
-        playerHand,
-        setPlayerHand,
-        playerBoard,
-        setPlayerBoard,
-        playerDeck,
-        setPlayerDeck,
+        playerState: playerBySide.player,
+        enemyState: playerBySide.enemy,
 
         buildDeckCards,
         drawCardFromDeckToHand,

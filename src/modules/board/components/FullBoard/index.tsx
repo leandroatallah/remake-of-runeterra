@@ -21,8 +21,20 @@ import {
 import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const FullBoard = () => {
-  const { playerHand, setPlayerHand, playerBoard, setPlayerBoard } =
-    useBoardContext();
+  const {
+    playerState: {
+      hand: playerHand,
+      setHand: setPlayerHand,
+      board: playerBoard,
+      setBoard: setPlayerBoard,
+    },
+    enemyState: {
+      hand: enemyHand,
+      setHand: setEnemyHand,
+      board: enemyBoard,
+      setBoard: setEnemyBoard,
+    },
+  } = useBoardContext();
   const sensorAPIRef = useRef<SensorAPI | undefined | null>(null);
 
   const [isDragging, setIsDragging] = useState(false);

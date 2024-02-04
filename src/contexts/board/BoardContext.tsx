@@ -2,15 +2,20 @@ import { Dispatch, SetStateAction, createContext } from "react";
 
 import { CardItem } from "@/modules/cards/models";
 
-type SetCardItemState = Dispatch<SetStateAction<CardItem[]>>;
+export type SetCardItemState = Dispatch<SetStateAction<CardItem[]>>;
+
+export type PlayerState = {
+  hand: CardItem[];
+  board: CardItem[];
+  deck: CardItem[];
+  setHand: SetCardItemState;
+  setBoard: SetCardItemState;
+  setDeck: SetCardItemState;
+};
 
 type BoardContextProps = {
-  playerHand: CardItem[];
-  setPlayerHand: SetCardItemState;
-  playerBoard: CardItem[];
-  setPlayerBoard: SetCardItemState;
-  playerDeck: CardItem[];
-  setPlayerDeck: SetCardItemState;
+  playerState: PlayerState;
+  enemyState: PlayerState;
 
   buildDeckCards: (cards: CardItem[]) => void;
   drawCardFromDeckToHand: () => void;

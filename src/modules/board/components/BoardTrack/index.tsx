@@ -6,7 +6,10 @@ import { Card } from "@/modules/cards/components/Card";
 import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const BoardTrack = () => {
-  const { playerBoard } = useBoardContext();
+  const {
+    playerState: { board: playerBoard },
+    enemyState: { board: enemyBoard },
+  } = useBoardContext();
 
   return (
     <div

@@ -6,7 +6,10 @@ import { DeckPile } from "../DeckPile";
 import { useBoardContext } from "@/contexts/board/useBoardContext";
 
 export const PlayerArea = () => {
-  const { playerHand } = useBoardContext();
+  const {
+    playerState: { hand: playerHand },
+    enemyState: { hand: enemyHand },
+  } = useBoardContext();
 
   return (
     <div className="flex justify-between">

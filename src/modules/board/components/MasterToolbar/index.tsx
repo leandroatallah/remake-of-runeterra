@@ -30,9 +30,8 @@ const initialInputModal: InputModal = {
 
 export const MasterToolbar = () => {
   const {
-    playerHand,
-    playerDeck,
-    playerBoard,
+    playerState: { hand: playerHand, deck: playerDeck, board: playerBoard },
+    enemyState: { hand: enemyHand, deck: enemyDeck, board: enemyBoard },
     drawCardFromDeckToHand,
     drawInitialHand,
     deleteBoardCard,
