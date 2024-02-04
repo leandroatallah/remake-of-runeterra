@@ -43,22 +43,18 @@ export const FullBoard = () => {
         return;
       }
 
-      // // Player cant drop or move cards on their hand
-      // if (destination.droppableId === DROPPABLE_HAND_ID) {
-      //   return;
-      // }
+      const { droppableId, index } = destination;
 
-      const { droppableId } = destination;
-
-      const isBoardTrack = droppableId.split("-")[0] === DROPPABLE_BOARD_ID;
+      const isBoardTrack = droppableId === DROPPABLE_BOARD_ID;
 
       if (isBoardTrack) {
         const { result, removed } = playDraggableItem(playerHand, source.index);
         setPlayerHand(result);
-        setPlayerBoard((prev) => [
-          ...prev,
-          { ...removed, boardTrack: droppableId },
-        ]);
+        setPlayerBoard((prev) => {
+          const newBoard = [...prev];
+          newBoard.splice(index, 0, removed);
+          return newBoard;
+        });
         return;
       }
 

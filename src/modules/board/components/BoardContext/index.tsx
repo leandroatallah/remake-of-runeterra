@@ -75,10 +75,9 @@ export const BoardContextProvider = ({
 
     for (let i = 0; i < drawCount; i++) {
       if (i > 0) {
-        await delay(250);
+        await delay(100);
       }
       const drawnCard = deck.shift();
-      console.log("drawnCard", drawnCard);
       setPlayerHand((prev) => [...prev, drawnCard!]);
       setPlayerDeck(deck);
     }

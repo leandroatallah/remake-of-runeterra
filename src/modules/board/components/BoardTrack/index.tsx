@@ -1,13 +1,13 @@
 import { Droppable } from "@hello-pangea/dnd";
 
 import { DROPPABLE_BOARD_ID } from "@/constants/drag-and-drop";
-import { BOARD_TRACK_SPACES } from "@/constants/board";
-import { BORDER_DASHED_STYLE, CARD_SHAPE_STYLE } from "@/styles/card";
+import { BORDER_DASHED_STYLE } from "@/styles/card";
 import { useBoardContext } from "../BoardContext";
 import { Card } from "@/modules/cards/components/Card";
 
 export const BoardTrack = () => {
   const { playerBoard } = useBoardContext();
+
   return (
     <div
       className={[
@@ -15,48 +15,32 @@ export const BoardTrack = () => {
         BORDER_DASHED_STYLE,
       ].join(" ")}
     >
-      {Array.from({ length: BOARD_TRACK_SPACES }).map((_, index) => {
-        const droppableId = `${DROPPABLE_BOARD_ID}-${index}`;
-        const card = playerBoard.find(
-          (card) => card.boardTrack === droppableId
-        );
+      <Droppable
+        droppableId={DROPPABLE_BOARD_ID}
+        type="list"
+        direction="horizontal"
+      >
+        {(provided, snapshot) => {
+          // snapshot
+          // - draggingFromThisWith
+          // - draggingOverWith
+          // - isDraggingOver
+          // - isUsingPlaceholder
 
-        return (
-          <Droppable
-            key={index}
-            droppableId={droppableId}
-            type="list"
-            direction="horizontal"
-            isDropDisabled={!!card}
-          >
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {card ? (
-                  <Card data={card} />
-                ) : (
-                  <div>
-                    <div
-                      className={[
-                        CARD_SHAPE_STYLE,
-                        "relative !bg-transparent !border-0",
-                      ].join(" ")}
-                    >
-                      <div
-                        className={[
-                          CARD_SHAPE_STYLE,
-                          BORDER_DASHED_STYLE,
-                          "absolute inset-0 flex justify-center items-center !bg-transparent !border-zinc-300",
-                        ].join(" ")}
-                      />
-                    </div>
-                  </div>
-                )}
-                <div className="hidden">{provided.placeholder}</div>
-              </div>
-            )}
-          </Droppable>
-        );
-      })}
+          return (
+            <div
+              ref={provided.innerRef}
+              className="bg-red-400 h-full w-full flex justify-center items-center"
+              {...provided.droppableProps}
+            >
+              {playerBoard.map((card, index) => (
+                <Card data={card} index={index} disabled key={card.deckId} />
+              ))}
+              {provided.placeholder}
+            </div>
+          );
+        }}
+      </Droppable>
     </div>
   );
 };

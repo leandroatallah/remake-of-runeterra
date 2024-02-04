@@ -15,6 +15,7 @@ export const PlayerArea = () => {
         droppableId={DROPPABLE_HAND_ID}
         type="list"
         direction="horizontal"
+        isDropDisabled
       >
         {(provided) => (
           <>
