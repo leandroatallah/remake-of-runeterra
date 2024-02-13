@@ -17,10 +17,10 @@ type BoardContextProps = {
   playerState: PlayerState;
   enemyState: PlayerState;
 
-  buildDeckCards: (cards: CardItem[]) => void;
-  drawCardFromDeckToHand: () => void;
-  drawInitialHand: () => void;
-  deleteBoardCard: (card: CardItem) => void;
+  buildDeckCards: (cards: CardItem[], isEnemy?: boolean) => void;
+  drawCardFromDeckToHand: (count?: number, isEnemy?: boolean) => void;
+  drawInitialHand: (isEnemy?: boolean) => void;
+  deleteBoardCard: (card: CardItem, isEnemy?: boolean) => void;
 };
 
 export const BoardContext = createContext<BoardContextProps | null>(null);

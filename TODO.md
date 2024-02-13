@@ -2,4 +2,4 @@
   - [https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-controls](https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-controls)
   - [https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-runsheet](https://dnd.hellopangea.com/?path=/story/examples-programmatic-dragging--with-runsheet)
 - Center cards in hand when is dragging
-- Convert board context state to useReducer
+- Improve player and enemy state, and remove isEnemy params

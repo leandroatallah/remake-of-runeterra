@@ -130,6 +130,7 @@ export const FullBoard = () => {
       >
         <div className="flex flex-col justify-between h-svh">
           <div className="h-20" />
+          <PlayerArea isEnemy />
           <BoardSide />
           <PlayerArea />
         </div>

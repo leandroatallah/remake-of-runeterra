@@ -15,15 +15,17 @@ export default function Home() {
   useEffect(() => {
     const sampleChampion = cardDataMapper(mockChampionCard);
     const sampleSpell = cardDataMapper(mockSpellCard);
+    const sampleDeck = [
+      sampleChampion,
+      sampleSpell,
+      sampleChampion,
+      sampleSpell,
+      sampleChampion,
+      sampleSpell,
+    ];
 
-    buildDeckCards([
-      sampleChampion,
-      sampleSpell,
-      sampleChampion,
-      sampleSpell,
-      sampleChampion,
-      sampleSpell,
-    ]);
+    buildDeckCards(sampleDeck);
+    buildDeckCards(sampleDeck, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

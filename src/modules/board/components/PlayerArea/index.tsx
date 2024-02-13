@@ -5,11 +5,13 @@ import { DROPPABLE_HAND_ID } from "@/constants/drag-and-drop";
 import { DeckPile } from "../DeckPile";
 import { useBoardContext } from "@/contexts/board/useBoardContext";
 
-export const PlayerArea = () => {
+export const PlayerArea = ({ isEnemy }: { isEnemy?: boolean }) => {
   const {
     playerState: { hand: playerHand },
     enemyState: { hand: enemyHand },
   } = useBoardContext();
+
+  const hand = isEnemy ? enemyHand : playerHand;
 
   return (
     <div className="flex justify-between">
@@ -28,7 +30,7 @@ export const PlayerArea = () => {
               {...provided.droppableProps}
             >
               <div className="flex">
-                <Hand cards={playerHand} />
+                <Hand cards={hand} isTurned={isEnemy} disabled={isEnemy} />
               </div>
               {provided.placeholder}
             </div>

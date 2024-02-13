@@ -39,11 +39,15 @@ export const MasterToolbar = () => {
 
   const [inputModal, setInputModal] = useState<InputModal>(initialInputModal);
 
-  const handleLogPlayerOneHand = () => logger("P1 hand", playerHand);
-  const handleLogPlayerOneDeck = () => logger("P1 deck", playerDeck);
-  const handleLogPlayerOneBoard = () => logger("P1 board", playerBoard);
+  const handleLogPlayerHand = () => logger("Player hand", playerHand);
+  const handleLogPlayerDeck = () => logger("Player deck", playerDeck);
+  const handleLogPlayerBoard = () => logger("Player board", playerBoard);
 
-  const handleDeleteBoardCard = () => {
+  const handleLogEnemyHand = () => logger("Enemy hand", enemyHand);
+  const handleLogEnemyDeck = () => logger("Enemy deck", enemyDeck);
+  const handleLogEnemyBoard = () => logger("Enemy board", enemyBoard);
+
+  const handleDeleteBoardCard = (isEnemy?: boolean) => {
     setInputModal({
       ...initialInputModal,
       callback: (index: string) => {
@@ -52,7 +56,7 @@ export const MasterToolbar = () => {
           console.error("Error deleting card");
           return;
         }
-        deleteBoardCard(card);
+        deleteBoardCard(card, isEnemy);
       },
       modalTitle: "Delete card",
       modalBody: (
@@ -71,7 +75,7 @@ export const MasterToolbar = () => {
     });
   };
 
-  const handleDeleteFirstBoardCard = () => {
+  const handleDeleteFirstBoardCard = (isEnemy?: boolean) => {
     const [firstCard] = playerBoard || [];
 
     if (!firstCard) {
@@ -79,54 +83,93 @@ export const MasterToolbar = () => {
       return;
     }
 
-    deleteBoardCard(firstCard);
+    deleteBoardCard(firstCard, isEnemy);
   };
 
   const resetInputModal = () => setInputModal(initialInputModal);
 
-  const actions = [
+  const groupActions = [
     {
-      group: {
-        label: "Player 1",
-        actions: [
-          {
-            label: "draw a card",
-            handler: drawCardFromDeckToHand,
+      label: "Player",
+      actions: [
+        {
+          label: "draw a card",
+          handler: () => drawCardFromDeckToHand(),
+        },
+        {
+          label: "draw hand",
+          handler: drawInitialHand,
+        },
+        {
+          label: "Log deck",
+          handler: handleLogPlayerDeck,
+        },
+        {
+          label: "Log hand",
+          handler: handleLogPlayerHand,
+        },
+        {
+          label: "Log board",
+          handler: handleLogPlayerBoard,
+        },
+        {
+          label: "Log all",
+          handler: () => {
+            handleLogPlayerDeck();
+            handleLogPlayerHand();
+            handleLogPlayerBoard();
           },
-          {
-            label: "draw hand",
-            handler: drawInitialHand,
+        },
+        {
+          label: "destroy a card",
+          handler: handleDeleteBoardCard,
+        },
+        {
+          label: "destroy first card",
+          handler: handleDeleteFirstBoardCard,
+        },
+      ],
+    },
+    {
+      label: "Enemy",
+      actions: [
+        {
+          label: "draw a card",
+          handler: () => drawCardFromDeckToHand(1, true),
+        },
+        {
+          label: "draw hand",
+          handler: () => drawInitialHand(true),
+        },
+        {
+          label: "Log deck",
+          handler: handleLogEnemyDeck,
+        },
+        {
+          label: "Log hand",
+          handler: handleLogEnemyHand,
+        },
+        {
+          label: "Log board",
+          handler: handleLogEnemyBoard,
+        },
+        {
+          label: "Log all",
+          handler: () => {
+            handleLogEnemyHand();
+            handleLogEnemyDeck();
+            handleLogEnemyBoard();
           },
-          {
-            label: "Log deck",
-            handler: handleLogPlayerOneDeck,
-          },
-          {
-            label: "Log hand",
-            handler: handleLogPlayerOneHand,
-          },
-          {
-            label: "Log board",
-            handler: handleLogPlayerOneBoard,
-          },
-          {
-            label: "Log all",
-            handler: () => {
-              handleLogPlayerOneDeck();
-              handleLogPlayerOneHand();
-              handleLogPlayerOneBoard();
-            },
-          },
-          {
-            label: "destroy a card",
-            handler: handleDeleteBoardCard,
-          },
-          {
-            label: "destroy first card",
-            handler: handleDeleteFirstBoardCard,
-          },
-        ],
-      },
+        },
+        {
+          label: "destroy a card",
+          handler: () => handleDeleteBoardCard(true),
+        },
+        {
+          label: "destroy first card",
+          handler: () => handleDeleteFirstBoardCard(true),
+        },
+      ],
     },
   ];
 
@@ -175,8 +218,8 @@ export const MasterToolbar = () => {
           <h1 className="text-[12px] tracking-widest uppercase text-center font-bold mb-2">
             Master Toolbar
           </h1>
-          <div className="">
-            {actions.map(({ group }) => (
+          <div className="flex flex-col gap-4">
+            {groupActions.map((group) => (
               <div className="bg-zinc-200 text-center p-2" key={group.label}>
                 <div className="text-[12px] uppercase pb-1 mb-2 border-b border-zinc-300">
                   {group.label}
