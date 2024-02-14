@@ -1,3 +1,4 @@
+import { useGameContext } from "@/contexts/game/useGameContext";
 import { useRef } from "react";
 
 interface DraggableProps {
@@ -7,6 +8,7 @@ interface DraggableProps {
 
 export const Draggable = ({ children, disabled }: DraggableProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { setIsDraggingSomeCard: setIsDragging } = useGameContext();
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setDragImage(new Image(), 0, 0);
@@ -15,6 +17,8 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
 
     localStorage.setItem("clientX", clientX.toString());
     localStorage.setItem("clientY", clientY.toString());
+
+    setIsDragging(true);
   };
 
   const onDrag = (event: React.DragEvent<HTMLDivElement>) => {
@@ -34,6 +38,8 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
   };
 
   const onDragEnd = () => {
+    setIsDragging(false);
+
     if (ref.current === null) return;
 
     const initialPositionX = localStorage.getItem("clientX");

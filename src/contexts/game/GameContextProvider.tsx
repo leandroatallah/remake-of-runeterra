@@ -8,12 +8,15 @@ interface GameContextProvider {
 
 export const GameContextProvider = ({ children }: GameContextProvider) => {
   const [turn, setTurn] = useState<number>(0);
+  const [isDraggingSomeCard, setIsDraggingSomeCard] = useState<boolean>(false);
 
   return (
     <GameContext.Provider
       value={{
         turn,
+        isDraggingSomeCard,
         setTurn,
+        setIsDraggingSomeCard,
       }}
     >
       {children}

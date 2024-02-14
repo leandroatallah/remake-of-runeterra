@@ -7,6 +7,7 @@ interface CardRootProps {
   card: CardItem | null;
   isTurned?: boolean;
   className?: string;
+  hoverEffect?: "hand" | "board" | "none";
 }
 
 export const CardRoot = ({
@@ -14,12 +15,22 @@ export const CardRoot = ({
   children,
   isTurned,
   className = "",
+  hoverEffect,
 }: CardRootProps) => {
+  const hoverEffectClass: Record<string, string> = {
+    hand: "transition-transform duration-100 hover:scale-150 hover:relative hover:z-50 hover:-translate-y-1/4",
+  };
+
+  const hoverEffectStyle =
+    hoverEffect && hoverEffectClass[hoverEffect]
+      ? hoverEffectClass[hoverEffect]
+      : "";
+
+  const classList = [CARD_SHAPE_STYLE, hoverEffectStyle, className].join(" ");
+
   return (
     <CardContextProvider value={card}>
-      <div className={[CARD_SHAPE_STYLE, className].join(" ")}>
-        {card && !isTurned ? children : <div />}
-      </div>
+      <div className={classList}>{card && !isTurned ? children : <div />}</div>
     </CardContextProvider>
   );
 };

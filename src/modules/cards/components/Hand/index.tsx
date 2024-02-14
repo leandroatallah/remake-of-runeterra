@@ -17,6 +17,7 @@ export const Hand = ({ cards, disabled, isTurned }: HandProps) => {
           data={card}
           disabled={disabled}
           isTurned={isTurned}
+          hoverEffect="hand"
         />
       ))}
     </div>

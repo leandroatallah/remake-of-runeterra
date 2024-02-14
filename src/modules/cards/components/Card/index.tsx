@@ -1,6 +1,7 @@
 import { CardItem } from "@/modules/cards/models";
 import * as Composition from "./CardComposition";
 import { Draggable } from "@/modules/drag-and-drop/components/Draggable";
+import { useGameContext } from "@/contexts/game/useGameContext";
 
 interface CardProps {
   data?: CardItem;
@@ -8,6 +9,7 @@ interface CardProps {
   disabled?: boolean;
   isTurned?: boolean;
   className?: string;
+  hoverEffect?: "hand" | "board" | "none";
 }
 
 export const Card = ({
@@ -16,34 +18,23 @@ export const Card = ({
   disabled,
   isTurned,
   className = "",
+  hoverEffect,
 }: CardProps) => {
+  const { isDraggingSomeCard } = useGameContext();
+
   if (!data || !data.deckId) {
     return <Composition.Root card={null} isTurned className={className} />;
   }
 
-  // const getStyle = (
-  //   style: DraggingStyle | NotDraggingStyle | undefined,
-  //   snapshot: DraggableStateSnapshot
-  // ): CSSProperties => {
-  //   const dropping: DropAnimation | undefined | null = snapshot.dropAnimation;
-  //   if (!dropping) {
-  //     return style || {};
-  //   }
-  //   const { moveTo, curve, duration } = dropping;
-  //   const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
-  //   const rotate = "rotate(1turn)";
-  //   return {
-  //     ...style,
-  //     transform: `${translate} ${rotate}`,
-  //     // slowing down the drop
-  //     transition: `all ${curve} ${duration + 1}s`,
-  //   };
-  // };
-
   return (
     <Draggable>
       <div>
-        <Composition.Root card={data} isTurned={isTurned} className={className}>
+        <Composition.Root
+          card={data}
+          isTurned={isTurned}
+          className={className}
+          hoverEffect={isDraggingSomeCard ? "none" : hoverEffect}
+        >
           {disabled && "disabled"}
           <Composition.Header />
           <Composition.Title />
