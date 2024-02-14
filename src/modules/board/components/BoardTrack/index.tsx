@@ -1,6 +1,3 @@
-import { Droppable } from "@hello-pangea/dnd";
-
-import { DROPPABLE_BOARD_ID } from "@/constants/drag-and-drop";
 import { BORDER_DASHED_STYLE } from "@/styles/card";
 import { Card } from "@/modules/cards/components/Card";
 import { useBoardContext } from "@/contexts/board/useBoardContext";
@@ -18,32 +15,11 @@ export const BoardTrack = () => {
         BORDER_DASHED_STYLE,
       ].join(" ")}
     >
-      <Droppable
-        droppableId={DROPPABLE_BOARD_ID}
-        type="list"
-        direction="horizontal"
-      >
-        {(provided, snapshot) => {
-          // snapshot
-          // - draggingFromThisWith
-          // - draggingOverWith
-          // - isDraggingOver
-          // - isUsingPlaceholder
-
-          return (
-            <div
-              ref={provided.innerRef}
-              className="bg-red-400 h-full w-full flex justify-center items-center"
-              {...provided.droppableProps}
-            >
-              {playerBoard.map((card, index) => (
-                <Card data={card} index={index} disabled key={card.deckId} />
-              ))}
-              {provided.placeholder}
-            </div>
-          );
-        }}
-      </Droppable>
+      <div className="bg-red-400 h-full w-full flex justify-center items-center">
+        {playerBoard.map((card, index) => (
+          <Card data={card} index={index} disabled key={card.deckId} />
+        ))}
+      </div>
     </div>
   );
 };
