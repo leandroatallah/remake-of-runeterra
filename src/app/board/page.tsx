@@ -10,7 +10,8 @@ import mockSpellCard from "@/data/mocks/cards/spell-card.json";
 import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 export default function Home() {
-  const { buildDeckCards } = useBoardStore();
+  const { buildDeckCards, drawInitialHand, playerState, enemyState } =
+    useBoardStore();
 
   useEffect(() => {
     const sampleChampion = cardDataMapper(mockChampionCard);
@@ -28,6 +29,17 @@ export default function Home() {
     buildDeckCards(sampleDeck, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (playerState.deck.length > 0 && playerState.hand.length === 0) {
+      drawInitialHand();
+    }
+
+    if (enemyState.deck.length > 0 && enemyState.hand.length === 0) {
+      drawInitialHand(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerState.deck, enemyState.deck]);
 
   return (
     <div>

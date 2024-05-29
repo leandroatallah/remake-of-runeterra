@@ -33,7 +33,7 @@ export const handleDrawCardFromDeckToHand = async (
       await delay(100);
     }
     const drawnCard = deckCopy.shift();
-    playerState.setHand((prev) => [...prev, drawnCard!]);
+    playerState.incrementHand(drawnCard!);
     playerState.setDeck(deckCopy);
   }
 };
@@ -51,5 +51,5 @@ export const handleDeleteBoardCard = (
     console.error("Error deleting card");
     return;
   }
-  playerState.setBoard((prev) => prev.filter((c) => c.id !== card.id));
+  playerState.deleteBoardCard(card.id);
 };

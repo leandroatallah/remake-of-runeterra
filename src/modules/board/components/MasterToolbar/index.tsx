@@ -38,6 +38,7 @@ export const MasterToolbar = () => {
   } = useBoardStore();
 
   const [inputModal, setInputModal] = useState<InputModal>(initialInputModal);
+  const [open, setOpen] = useState(false);
 
   const handleLogPlayerHand = () => logger("Player hand", playerHand);
   const handleLogPlayerDeck = () => logger("Player deck", playerDeck);
@@ -172,6 +173,9 @@ export const MasterToolbar = () => {
       ],
     },
   ];
+  function toggleToolbar() {
+    setOpen(!open);
+  }
 
   return (
     <>
@@ -215,29 +219,36 @@ export const MasterToolbar = () => {
       )}
       <div className="w-full fixed top-0 text-zinc-950 z-20">
         <div className="p-2 border-2 border-t-0 border-zinc-500 bg-zinc-300 max-w-[1024px] m-auto rounded-b-md">
-          <h1 className="text-[12px] tracking-widest uppercase text-center font-bold mb-2">
+          <h1 className="text-[12px] tracking-widest uppercase text-center font-bold flex justify-between items-center px-2">
             Master Toolbar
+            <button className="border px-2" onClick={toggleToolbar}>
+              Toggle
+            </button>
           </h1>
-          <div className="flex flex-col gap-4">
-            {groupActions.map((group) => (
-              <div className="bg-zinc-200 text-center p-2" key={group.label}>
-                <div className="text-[12px] uppercase pb-1 mb-2 border-b border-zinc-300">
-                  {group.label}
+          {open && (
+            <div className="flex flex-col gap-4 mt-2">
+              {groupActions.map((group) => (
+                <div className="bg-zinc-200 text-center p-2" key={group.label}>
+                  <div className="text-[12px] uppercase pb-1 mb-2 border-b border-zinc-300">
+                    {group.label}
+                  </div>
+                  <div className="flex gap-2">
+                    {group.actions.map(({ label, handler }) => (
+                      <button
+                        key={label}
+                        className="w-full flex justify-center items-center border-2 border-zinc-50 bg-zinc-50 rounded-md"
+                        onClick={() => handler()}
+                      >
+                        <span className="text-zinc-900 text-[10px]">
+                          {label}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  {group.actions.map(({ label, handler }) => (
-                    <button
-                      key={label}
-                      className="w-full flex justify-center items-center border-2 border-zinc-50 bg-zinc-50 rounded-md"
-                      onClick={() => handler()}
-                    >
-                      <span className="text-zinc-900 text-[10px]">{label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

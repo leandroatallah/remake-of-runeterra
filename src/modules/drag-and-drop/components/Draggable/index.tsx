@@ -1,5 +1,5 @@
+import { useCallback, useRef } from "react";
 import { useGameStore } from "@/contexts/game/useGameStore";
-import { useRef } from "react";
 
 interface DraggableProps {
   children: React.ReactNode;
@@ -37,7 +37,7 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
     });
   };
 
-  const onDragEnd = () => {
+  const onDragEnd = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     setIsDragging(false);
 
     if (ref.current === null) return;
@@ -68,6 +68,11 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
         transition: "initial",
       });
     }, 350);
+  }, []);
+
+  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    console.log("onDrop", event);
   };
 
   // const onDragEnd = useCallback(
@@ -120,6 +125,10 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
       onDrag={onDrag}
       onDragEnd={onDragEnd}
       onDragStart={onDragStart}
+      onDrop={onDrop}
+      onDragOver={(event) => {
+        event.preventDefault();
+      }}
     >
       {children}
     </div>

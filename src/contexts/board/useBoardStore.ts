@@ -15,6 +15,8 @@ export interface PlayerState {
   setHand: (hand: CardItem[]) => void;
   setBoard: (board: CardItem[]) => void;
   setDeck: (deck: CardItem[]) => void;
+  incrementHand: (card: CardItem) => void;
+  deleteBoardCard: (cardId: string) => void;
 }
 
 interface BoardContextProps {
@@ -40,7 +42,22 @@ export const useBoardStore = create<BoardContextProps>((set, get) => ({
       set((state) => ({ playerState: { ...state.playerState, board } })),
     setDeck: (deck) =>
       set((state) => ({ playerState: { ...state.playerState, deck } })),
+    incrementHand: (card) =>
+      set((state) => ({
+        playerState: {
+          ...state.playerState,
+          hand: [...state.playerState.hand, card],
+        },
+      })),
+    deleteBoardCard: (cardId) =>
+      set((state) => ({
+        playerState: {
+          ...state.playerState,
+          board: state.playerState.board.filter((card) => card.id !== cardId),
+        },
+      })),
   },
+  // TODO: Improve playerState and enemyState structure
   enemyState: {
     hand: [],
     board: [],
@@ -51,6 +68,20 @@ export const useBoardStore = create<BoardContextProps>((set, get) => ({
       set((state) => ({ enemyState: { ...state.enemyState, board } })),
     setDeck: (deck) =>
       set((state) => ({ enemyState: { ...state.enemyState, deck } })),
+    incrementHand: (card) =>
+      set((state) => ({
+        enemyState: {
+          ...state.enemyState,
+          hand: [...state.enemyState.hand, card],
+        },
+      })),
+    deleteBoardCard: (cardId) =>
+      set((state) => ({
+        enemyState: {
+          ...state.enemyState,
+          board: state.enemyState.board.filter((card) => card.id !== cardId),
+        },
+      })),
   },
 
   getPlayer: (isEnemy) => {
