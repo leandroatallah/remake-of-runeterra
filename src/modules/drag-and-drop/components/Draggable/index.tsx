@@ -6,6 +6,8 @@ interface DraggableProps {
   disabled?: boolean;
 }
 
+const DRAG_END_TIMEOUT = 350;
+
 export const Draggable = ({ children, disabled }: DraggableProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { setIsDraggingSomeCard: setIsDragging } = useGameStore();
@@ -38,7 +40,9 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
   };
 
   const onDragEnd = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    setIsDragging(false);
+    setTimeout(() => {
+      setIsDragging(false);
+    }, DRAG_END_TIMEOUT / 2);
 
     if (ref.current === null) return;
 
@@ -67,7 +71,7 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
         transform: "initial",
         transition: "initial",
       });
-    }, 350);
+    }, DRAG_END_TIMEOUT);
   }, []);
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
