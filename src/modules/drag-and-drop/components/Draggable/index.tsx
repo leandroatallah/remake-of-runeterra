@@ -6,7 +6,7 @@ interface DraggableProps {
   disabled?: boolean;
 }
 
-const DRAG_END_TIMEOUT = 350;
+const MIN_DRAG_DELAY = 300;
 
 export const Draggable = ({ children, disabled }: DraggableProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,15 +15,18 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setDragImage(new Image(), 0, 0);
 
-    const { clientX, clientY } = event;
+    const { x, y } = (event.target as HTMLDivElement).getBoundingClientRect();
 
-    localStorage.setItem("clientX", clientX.toString());
-    localStorage.setItem("clientY", clientY.toString());
+    localStorage.setItem("initialX", x.toString());
+    localStorage.setItem("initialY", y.toString());
 
     setIsDragging(true);
   };
 
   const onDrag = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    console.log("onDrag");
+
     if (ref.current === null) return;
 
     const { clientX, clientY } = event;
@@ -39,40 +42,51 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
     });
   };
 
-  const onDragEnd = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    setTimeout(() => {
-      setIsDragging(false);
-    }, DRAG_END_TIMEOUT / 2);
-
-    if (ref.current === null) return;
-
-    const initialPositionX = localStorage.getItem("clientX");
-    const initialPositionY = localStorage.getItem("clientY");
-
-    localStorage.removeItem("clientX");
-    localStorage.removeItem("clientY");
-
-    Object.assign(ref.current.style, {
-      position: "fixed",
-      left: `${initialPositionX}px`,
-      top: `${initialPositionY}px`,
-      zIndex: "1000",
-      transform: "initial",
-      transition: "all 0.3s",
-    });
-
-    setTimeout(() => {
+  const onDragEnd = useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
       if (ref.current === null) return;
+
+      const initialPositionX = localStorage.getItem("initialX");
+      const initialPositionY = localStorage.getItem("initialY");
+
+      const currentPositionX = ref.current.style.left.replace("px", "");
+      const currentPositionY = ref.current.style.top.replace("px", "");
+      const dragDistanceX = Math.abs(
+        Number(currentPositionX) - Number(initialPositionX)
+      );
+      const dragDistanceY = Math.abs(
+        Number(currentPositionY) - Number(initialPositionY)
+      );
+      const dragDistance = Math.max(dragDistanceX, dragDistanceY) || 0;
+
+      localStorage.removeItem("initialX");
+      localStorage.removeItem("initialY");
+
       Object.assign(ref.current.style, {
-        position: "initial",
-        left: "initial",
-        top: "initial",
-        zIndex: "initial",
+        position: "fixed",
+        left: `${initialPositionX}px`,
+        top: `${initialPositionY}px`,
+        zIndex: "1000",
         transform: "initial",
-        transition: "initial",
+        transition: "all 0.3s",
       });
-    }, DRAG_END_TIMEOUT);
-  }, []);
+
+      setTimeout(() => {
+        if (ref.current === null) return;
+        setIsDragging(false);
+
+        Object.assign(ref.current.style, {
+          position: "initial",
+          left: "initial",
+          top: "initial",
+          zIndex: "initial",
+          transform: "initial",
+          transition: "initial",
+        });
+      }, Math.max(dragDistance * 0.5, MIN_DRAG_DELAY));
+    },
+    [setIsDragging]
+  );
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -132,6 +146,7 @@ export const Draggable = ({ children, disabled }: DraggableProps) => {
       onDrop={onDrop}
       onDragOver={(event) => {
         event.preventDefault();
+        event.stopPropagation();
       }}
     >
       {children}
