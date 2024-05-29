@@ -3,7 +3,7 @@ import * as Composition from "./CardComposition";
 import { Draggable } from "@/modules/drag-and-drop/components/Draggable";
 import { useGameStore } from "@/contexts/game/useGameStore";
 
-interface CardProps {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   data?: CardItem;
   index?: number;
   disabled?: boolean;
@@ -27,7 +27,7 @@ export const Card = ({
   }
 
   return (
-    <Draggable>
+    <Draggable disabled={disabled}>
       <div>
         <Composition.Root
           card={data}

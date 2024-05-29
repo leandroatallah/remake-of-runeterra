@@ -2,9 +2,9 @@ import { Droppable } from "@/modules/drag-and-drop/components/Droppable";
 import { BoardTrack } from "../BoardTrack";
 
 export const BoardSide = () => {
-  const handleOnDrop = (e) => {
-    console.log("Dropped on board");
-    console.log(e);
+  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    // ...
   };
 
   return (
