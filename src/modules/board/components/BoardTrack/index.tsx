@@ -1,17 +1,17 @@
 import { BORDER_DASHED_STYLE } from "@/styles/card";
 import { Card } from "@/modules/cards/components/Card";
-import { useBoardContext } from "@/contexts/board/useBoardContext";
+import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 export const BoardTrack = () => {
   const {
     playerState: { board: playerBoard },
     enemyState: { board: enemyBoard },
-  } = useBoardContext();
+  } = useBoardStore();
 
   return (
     <div
       className={[
-        "w-full flex gap-1 justify-center items-center rounded-lg p-1 h-[480px] bg-zinc-400 overflow-x-auto overflow-y-hidden",
+        "w-full flex gap-1 justify-center items-center rounded-lg p-1 h-[280px] bg-zinc-400 overflow-x-auto overflow-y-hidden",
         BORDER_DASHED_STYLE,
       ].join(" ")}
     >

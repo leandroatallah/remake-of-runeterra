@@ -1,12 +1,12 @@
 import { Hand } from "@/modules/cards/components/Hand";
 import { DeckPile } from "../DeckPile";
-import { useBoardContext } from "@/contexts/board/useBoardContext";
+import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 export const PlayerArea = ({ isEnemy }: { isEnemy?: boolean }) => {
   const {
     playerState: { hand: playerHand },
     enemyState: { hand: enemyHand },
-  } = useBoardContext();
+  } = useBoardStore();
 
   const hand = isEnemy ? enemyHand : playerHand;
 

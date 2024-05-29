@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { useBoardContext } from "@/contexts/board/useBoardContext";
 import { CardItem } from "@/modules/cards/models";
+import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 function logger(label: string, items: CardItem[]) {
   console.log(label, {
@@ -35,7 +35,7 @@ export const MasterToolbar = () => {
     drawCardFromDeckToHand,
     drawInitialHand,
     deleteBoardCard,
-  } = useBoardContext();
+  } = useBoardStore();
 
   const [inputModal, setInputModal] = useState<InputModal>(initialInputModal);
 

@@ -1,11 +1,11 @@
 import { Card } from "@/modules/cards/components/Card";
-import { useBoardContext } from "@/contexts/board/useBoardContext";
+import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 export const DeckPile = () => {
   const {
     playerState: { deck: playerDeck },
     enemyState: { deck: enemyDeck },
-  } = useBoardContext();
+  } = useBoardStore();
 
   return (
     <div className="flex justify-center items-center px-4 border-2 border-dashed border-zinc-700">

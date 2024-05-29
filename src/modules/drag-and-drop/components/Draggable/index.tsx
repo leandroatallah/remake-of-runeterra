@@ -1,4 +1,4 @@
-import { useGameContext } from "@/contexts/game/useGameContext";
+import { useGameStore } from "@/contexts/game/useGameStore";
 import { useRef } from "react";
 
 interface DraggableProps {
@@ -8,7 +8,7 @@ interface DraggableProps {
 
 export const Draggable = ({ children, disabled }: DraggableProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { setIsDraggingSomeCard: setIsDragging } = useGameContext();
+  const { setIsDraggingSomeCard: setIsDragging } = useGameStore();
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setDragImage(new Image(), 0, 0);

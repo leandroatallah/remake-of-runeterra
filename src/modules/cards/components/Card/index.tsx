@@ -1,7 +1,7 @@
 import { CardItem } from "@/modules/cards/models";
 import * as Composition from "./CardComposition";
 import { Draggable } from "@/modules/drag-and-drop/components/Draggable";
-import { useGameContext } from "@/contexts/game/useGameContext";
+import { useGameStore } from "@/contexts/game/useGameStore";
 
 interface CardProps {
   data?: CardItem;
@@ -20,7 +20,7 @@ export const Card = ({
   className = "",
   hoverEffect,
 }: CardProps) => {
-  const { isDraggingSomeCard } = useGameContext();
+  const { isDraggingSomeCard } = useGameStore();
 
   if (!data || !data.deckId) {
     return <Composition.Root card={null} isTurned className={className} />;

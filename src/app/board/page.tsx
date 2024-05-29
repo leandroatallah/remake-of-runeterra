@@ -2,15 +2,15 @@
 
 import { useEffect } from "react";
 
-import { useBoardContext } from "@/contexts/board/useBoardContext";
 import { FullBoard } from "@/modules/board/components/FullBoard";
 import { MasterToolbar } from "@/modules/board/components/MasterToolbar";
 import { cardDataMapper } from "@/modules/cards/utils/cardDataMapper";
 import mockChampionCard from "@/data/mocks/cards/champion-card.json";
 import mockSpellCard from "@/data/mocks/cards/spell-card.json";
+import { useBoardStore } from "@/contexts/board/useBoardStore";
 
 export default function Home() {
-  const { buildDeckCards } = useBoardContext();
+  const { buildDeckCards } = useBoardStore();
 
   useEffect(() => {
     const sampleChampion = cardDataMapper(mockChampionCard);
