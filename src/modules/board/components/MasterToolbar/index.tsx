@@ -218,7 +218,7 @@ export const MasterToolbar = () => {
         </div>
       )}
       <div className="w-full fixed top-0 text-zinc-950 z-20">
-        <div className="p-2 border-2 border-t-0 border-zinc-500 bg-zinc-300 max-w-[1024px] m-auto rounded-b-md">
+        <div className="p-2 border-2 border-t-0 border-zinc-500 bg-zinc-300 max-w-[1024px] m-auto rounded-b-md bg-opacity-90">
           <h1 className="text-[12px] tracking-widest uppercase text-center font-bold flex justify-between items-center px-2">
             Master Toolbar
             <button className="border px-2" onClick={toggleToolbar}>

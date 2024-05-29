@@ -18,7 +18,12 @@ export const CardRoot = ({
   hoverEffect,
 }: CardRootProps) => {
   const hoverEffectClass: Record<string, string> = {
-    hand: "transition-transform duration-100 hover:scale-150 hover:relative hover:z-50 hover:-translate-y-1/4",
+    hand: !isTurned
+      ? [
+          "cursor-pointer transition-transform duration-100",
+          "hover:scale-150 hover:relative hover:z-50 hover:-translate-y-1/4",
+        ].join(" ")
+      : "",
   };
 
   const hoverEffectStyle =
